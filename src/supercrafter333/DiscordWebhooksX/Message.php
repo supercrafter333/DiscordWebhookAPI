@@ -29,10 +29,12 @@ declare(strict_types = 1);
 namespace supercrafter333\DiscordWebhooksX;
 
 
+use CortexPE\DiscordWebhookAPI\AllowedMentions;
+
 class Message implements \JsonSerializable
 {
-    /** @var array */
-    protected $data = [];
+
+    protected array $data = [];
 
     public function __construct(array $embeds = null)
     {
@@ -91,7 +93,16 @@ class Message implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function getAllowedMentions(): AllowedMentions
+    {
+        if (array_key_exists("allowed_mentions", $this->data)) {
+            return $this->data["allowed_mentions"];
+        }
+
+        return $this->data["allowed_mentions"] = new AllowedMentions();
+    }
+
+    public function jsonSerialize(): array
     {
         return $this->data;
     }

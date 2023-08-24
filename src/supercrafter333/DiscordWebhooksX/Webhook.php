@@ -32,23 +32,23 @@ namespace supercrafter333\DiscordWebhooksX;
 use supercrafter333\DiscordWebhooksX\task\DiscordWebhookSendTask;
 use pocketmine\Server;
 
-class Webhook {
-	/** @var string */
-	protected $url;
+class Webhook
+{
 
-	public function __construct(string $url){
-		$this->url = $url;
-	}
+    public function __construct(protected readonly string $url) {}
 
-	public function getURL(): string{
-		return $this->url;
-	}
+    public function getURL(): string
+    {
+        return $this->url;
+    }
 
-	public function isValid(): bool{
-		return filter_var($this->url, FILTER_VALIDATE_URL) !== false;
-	}
+    public function isValid(): bool
+    {
+        return filter_var($this->url, FILTER_VALIDATE_URL) !== false;
+    }
 
-	public function send(Message $message): void{
-		Server::getInstance()->getAsyncPool()->submitTask(new DiscordWebhookSendTask($this, $message));
-	}
+    public function send(Message $message): void
+    {
+        Server::getInstance()->getAsyncPool()->submitTask(new DiscordWebhookSendTask($this, $message));
+    }
 }

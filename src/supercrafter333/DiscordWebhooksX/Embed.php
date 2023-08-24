@@ -31,8 +31,8 @@ namespace supercrafter333\DiscordWebhooksX;
 
 class Embed
 {
-    /** @var array */
-    protected $data = [];
+
+    protected array $data = [];
 
     public function asArray(): array
     {
